@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerBase {
+public class Player {
     protected static final int BUST_POINT = 21;
 
     @Getter
@@ -18,7 +18,7 @@ public class PlayerBase {
     @Setter
     private boolean isBust = false;
 
-    public PlayerBase(String name) {
+    public Player(String name) {
         this.name = name;
     }
 
@@ -31,9 +31,22 @@ public class PlayerBase {
     }
 
     public void draw(Deck deck) {
+        draw(deck,false);
+    }
+
+    /**
+     * 山札からカードを引く
+     * @param deck     山札
+     * @param isHidden 引いたカードをを隠すか
+     */
+    public void draw(Deck deck, boolean isHidden) {
         Card card = deck.draw();
         addCardList(card);
         if (getPoint() > BUST_POINT) setBust(true);
-        System.out.println(this.name + "の引いたカードは" + card.toString() + "です。");
+        String msg = isHidden
+                ? this.name + "の引いたカードはわかりません。"
+                : this.name + "の引いたカードは" + card.toString() + "です。";
+        System.out.println( msg );
     }
+
 }

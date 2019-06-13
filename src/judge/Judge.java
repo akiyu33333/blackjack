@@ -1,7 +1,7 @@
 package judge;
 
 import card.Deck;
-import player.PlayerBase;
+import player.Player;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -15,15 +15,15 @@ public class Judge {
         System.out.println("★☆★☆★☆★☆★☆★☆　ブラックジャックにようこそ！　★☆★☆★☆★☆★☆★☆\n");
         System.out.println("ゲームを開始します。\n");
 
-        Deck deck = new Deck();
-        PlayerBase user   = new PlayerBase("あなた");
-        PlayerBase dealer = new PlayerBase("ディーラー");
+        Deck deck     = new Deck();
+        Player user   = new Player("あなた");
+        Player dealer = new Player("ディーラー");
 
-        initDraw(user,  deck);
-        initDraw(dealer,deck);
+        initDrawByUser(user, deck);
+        initDrawByCpuPlayer(dealer, deck);
 
-        drawCardByUser(user,deck);
-        drawCardByDealer(dealer,deck);
+        drawCardByUser(user, deck);
+        if(!user.isBust()) drawCardByCpuPlayer(dealer, deck);
 
         printGameResult(user, dealer);
 
@@ -32,18 +32,18 @@ public class Judge {
 
     /**
      * ゲームの結果を表示
-     * @param user   ユーザー
-     * @param dealer ディーラー
+     * @param player1 プレイヤー1
+     * @param player2 プレイヤー2
      */
-    private void printGameResult(PlayerBase user, PlayerBase dealer) {
-        if ((user.isBust() && dealer.isBust() )
-                || user.getPoint() == dealer.getPoint()) {
+    private void printGameResult(Player player1, Player player2) {
+        if (player1.getPoint() == player2.getPoint()) {
             System.out.println("引き分けです。");
-        } else if (!user.isBust() && dealer.isBust() && user.getPoint() > dealer.getPoint()) {
-            System.out.println("あなたの勝ちです！");
-        } else {
-            System.out.println("ディーラーの勝ちです！");
+            return;
         }
+        Player winner = !player1.isBust() && (player2.isBust() || player1.getPoint() > player2.getPoint())
+                ? player1
+                : player2;
+        System.out.println( winner.getName() + "の勝ちです！" );
     }
 
     /**
@@ -51,25 +51,39 @@ public class Judge {
      * @param player プレイヤー
      * @param deck   山札
      */
-    private void initDraw(PlayerBase player, Deck deck) {
+    private void initDrawByUser(Player player, Deck deck) {
         player.draw(deck);
         player.draw(deck);
-        System.out.println( player.getName() + "の現在の得点は" + player.getPoint() + "点です。\n");
     }
+
+    /**
+     * CPUの最初の手札
+     * 2枚目は何を引いたかわからない
+     * @param cpuPlayer
+     * @param deck
+     */
+    private void initDrawByCpuPlayer(Player cpuPlayer, Deck deck) {
+        cpuPlayer.draw(deck);
+        cpuPlayer.draw(deck, true);
+    }
+
     /**
      * ユーザーのドローターン
      * @param user ユーザー
      * @param deck 山札
      */
-    private void drawCardByUser(PlayerBase user, Deck deck) {
+    private void drawCardByUser(Player user, Deck deck) {
+
+        System.out.println( user.getName() + "の現在の得点は" + user.getPoint() + "点です。\n");
+
         try (Scanner sc = new Scanner(System.in)) {
             String line = null;
-            while (user.isBust() || !Objects.equals(line, "N")) {
+            while (!user.isBust() && !Objects.equals(line, "N")) {
                 System.out.println("カードを引きますか？引く場合はYを引かない場合はNを入力してください。");
                 line = sc.nextLine();
                 if (Objects.equals(line, "Y")) {
                     user.draw(deck);
-                    System.out.println("あなたの現在の得点は" + user.getPoint() + "点です。\n");
+                    System.out.println(user.getName() + "の現在の得点は" + user.getPoint() + "点です。\n");
                 } else if (!Objects.equals(line, "N")) {
                     System.out.println("Y/N以外が入力されました。");
                 }
@@ -78,14 +92,14 @@ public class Judge {
     }
 
     /**
-     * ディーラーのドローターン
-     * @param dealer ディーラー
-     * @param deck   山札
+     * CPUのドローターン
+     * @param cpuPlayer CPU
+     * @param deck      山札
      */
-    private void drawCardByDealer(PlayerBase dealer, Deck deck) {
-        while (dealer.getPoint() < 17){
-            dealer.draw(deck);
-            System.out.println("ディーラーの現在の得点は" + dealer.getPoint() + "点です。\n");
+    private void drawCardByCpuPlayer(Player cpuPlayer, Deck deck) {
+        while (cpuPlayer.getPoint() < 17){
+            cpuPlayer.draw(deck);
+            System.out.println( cpuPlayer.getName() + "の現在の得点は" + cpuPlayer.getPoint() + "点です。\n");
         }
     }
 
