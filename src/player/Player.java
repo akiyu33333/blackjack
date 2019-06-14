@@ -26,7 +26,7 @@ public class Player {
         cardList.add(card);
     }
 
-    public int getPoint(){
+    public int calcScore(){
         return cardList.stream().mapToInt( card -> card.getPoint()).sum();
     }
 
@@ -42,7 +42,7 @@ public class Player {
     public void draw(Deck deck, boolean isHidden) {
         Card card = deck.draw();
         addCardList(card);
-        if (getPoint() > BUST_POINT) setBust(true);
+        if (calcScore() > BUST_POINT) setBust(true);
         String msg = isHidden
                 ? this.name + "の引いたカードはわかりません。"
                 : this.name + "の引いたカードは" + card.toString() + "です。";
