@@ -1,7 +1,7 @@
-import judge.Judge;
+import blackjackgame.BlackJackGame;
 
 public class Main {
     public static void main(String[] args) {
-        new Judge().gameStart();
+        new BlackJackGame().start();
     }
 }
