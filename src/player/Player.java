@@ -26,8 +26,12 @@ public class Player {
         cardList.add(card);
     }
 
-    public int getPoint(){
-        return cardList.stream().mapToInt( card -> card.getPoint()).sum();
+    public int calcScore(){
+        int score = cardList.stream().filter(card -> card.getPoint() > 1 ).mapToInt(card -> card.getPoint()).sum();
+        int aceCardCount = (int) cardList.stream().filter(card -> card.getPoint() == 1 ).count();
+        if (aceCardCount == 0) return score;
+        int borderScore = 11 - aceCardCount;
+        return score > borderScore ? score + aceCardCount : score + 10 + aceCardCount ;
     }
 
     public void draw(Deck deck) {
@@ -42,7 +46,7 @@ public class Player {
     public void draw(Deck deck, boolean isHidden) {
         Card card = deck.draw();
         addCardList(card);
-        if (getPoint() > BUST_POINT) setBust(true);
+        if (calcScore() > BUST_POINT) setBust(true);
         String msg = isHidden
                 ? this.name + "の引いたカードはわかりません。"
                 : this.name + "の引いたカードは" + card.toString() + "です。";

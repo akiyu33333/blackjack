@@ -1,4 +1,4 @@
-package judge;
+package blackjackgame;
 
 import card.Deck;
 import player.Player;
@@ -6,12 +6,12 @@ import player.Player;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Judge {
+public class BlackJackGame {
 
     /**
      *  ゲーム開始
      */
-    public void gameStart() {
+    public void start() {
         System.out.println("★☆★☆★☆★☆★☆★☆　ブラックジャックにようこそ！　★☆★☆★☆★☆★☆★☆\n");
         System.out.println("ゲームを開始します。\n");
 
@@ -36,11 +36,11 @@ public class Judge {
      * @param player2 プレイヤー2
      */
     private void printGameResult(Player player1, Player player2) {
-        if (player1.getPoint() == player2.getPoint()) {
+        if (player1.calcScore() == player2.calcScore()) {
             System.out.println("引き分けです。");
             return;
         }
-        Player winner = !player1.isBust() && (player2.isBust() || player1.getPoint() > player2.getPoint())
+        Player winner = !player1.isBust() && (player2.isBust() || player1.calcScore() > player2.calcScore())
                 ? player1
                 : player2;
         System.out.println( winner.getName() + "の勝ちです！" );
@@ -74,7 +74,7 @@ public class Judge {
      */
     private void drawCardByUser(Player user, Deck deck) {
 
-        System.out.println( user.getName() + "の現在の得点は" + user.getPoint() + "点です。\n");
+        System.out.println( user.getName() + "の現在の得点は" + user.calcScore() + "点です。\n");
 
         try (Scanner sc = new Scanner(System.in)) {
             String line = null;
@@ -83,7 +83,7 @@ public class Judge {
                 line = sc.nextLine();
                 if (Objects.equals(line, "Y")) {
                     user.draw(deck);
-                    System.out.println(user.getName() + "の現在の得点は" + user.getPoint() + "点です。\n");
+                    System.out.println(user.getName() + "の現在の得点は" + user.calcScore() + "点です。\n");
                 } else if (!Objects.equals(line, "N")) {
                     System.out.println("Y/N以外が入力されました。");
                 }
@@ -97,10 +97,10 @@ public class Judge {
      * @param deck      山札
      */
     private void drawCardByCpuPlayer(Player cpuPlayer, Deck deck) {
-        while (cpuPlayer.getPoint() < 17){
+        System.out.println( cpuPlayer.getName() + "の現在の得点は" + cpuPlayer.calcScore() + "点です。\n");
+        while (cpuPlayer.calcScore() < 17){
             cpuPlayer.draw(deck);
-            System.out.println( cpuPlayer.getName() + "の現在の得点は" + cpuPlayer.getPoint() + "点です。\n");
+            System.out.println( cpuPlayer.getName() + "の現在の得点は" + cpuPlayer.calcScore() + "点です。\n");
         }
     }
-
 }
