@@ -27,7 +27,11 @@ public class Player {
     }
 
     public int calcScore(){
-        return cardList.stream().mapToInt( card -> card.getPoint()).sum();
+        int score = cardList.stream().filter(card -> card.getPoint() > 1 ).mapToInt(card -> card.getPoint()).sum();
+        int aceCardCount = (int) cardList.stream().filter(card -> card.getPoint() == 1 ).count();
+        if (aceCardCount == 0) return score;
+        int borderScore = 11 - aceCardCount;
+        return score > borderScore ? score + aceCardCount : score + 10 + aceCardCount ;
     }
 
     public void draw(Deck deck) {
