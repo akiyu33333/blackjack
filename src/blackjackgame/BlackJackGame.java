@@ -97,10 +97,10 @@ public class BlackJackGame {
      * @param deck      山札
      */
     private void drawCardByCpuPlayer(Player cpuPlayer, Deck deck) {
+        System.out.println( cpuPlayer.getName() + "の現在の得点は" + cpuPlayer.calcScore() + "点です。\n");
         while (cpuPlayer.calcScore() < 17){
             cpuPlayer.draw(deck);
             System.out.println( cpuPlayer.getName() + "の現在の得点は" + cpuPlayer.calcScore() + "点です。\n");
         }
     }
-
 }
