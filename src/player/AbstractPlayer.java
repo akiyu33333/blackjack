@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public abstract class AbstractPlayer {
     protected static final int BUST_POINT = 21;
 
     @Getter
@@ -18,7 +18,7 @@ public class Player {
     @Setter
     private boolean isBust = false;
 
-    public Player(String name) {
+    public AbstractPlayer(String name) {
         this.name = name;
     }
 
@@ -53,4 +53,15 @@ public class Player {
         System.out.println( msg );
     }
 
+    /**
+     * 初期手札の作成
+     * @param deck 山札
+     */
+    public abstract void initCardList(Deck deck);
+
+    /**
+     * 山札からカードを引く
+     * @param deck 山札
+     */
+    public abstract void drawCard(Deck deck);
 }
