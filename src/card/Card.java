@@ -22,6 +22,8 @@ public class Card {
                 return String.valueOf(this.rank);
         }
     }
+    //TODO:
+    //このメソッドはブラックジャック固有だからこのクラスに定義するべきではない
     public int getPoint() {
         return this.rank > 10 ? 10 : this.rank;
     }

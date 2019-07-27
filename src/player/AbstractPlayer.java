@@ -14,6 +14,7 @@ public abstract class AbstractPlayer {
     @Getter
     private final String name;
     private List<Card> cardList = new ArrayList<>();
+    //TODO:ゲームの終了フラグはゲームごとに持つべき
     @Getter
     @Setter
     private boolean isBust = false;
@@ -26,6 +27,8 @@ public abstract class AbstractPlayer {
         cardList.add(card);
     }
 
+    //TODO:
+    //計算式はブラックジャック固有なのでここに定義するべきではない
     public int calcScore(){
         int score = cardList.stream().filter(card -> card.getPoint() > 1 ).mapToInt(card -> card.getPoint()).sum();
         int aceCardCount = (int) cardList.stream().filter(card -> card.getPoint() == 1 ).count();
@@ -38,6 +41,8 @@ public abstract class AbstractPlayer {
         draw(deck,false);
     }
 
+    //TODO:
+    //このメソッドはプレイヤーに定義する汎用的な内容ではないのでここに定義するべきではない
     /**
      * 山札からカードを引く
      * @param deck     山札
