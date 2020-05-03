@@ -1,4 +1,4 @@
-class User(name: String) extends AbstractPlayer(name) {
+case class User(override val name: String) extends AbstractPlayer(name) {
   override def initCardList(deck: Deck): Unit = {
     draw(deck)
     draw(deck)

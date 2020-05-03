@@ -1,11 +1,11 @@
-class BlackJackGame {
+case class BlackJackGame() {
   def start(): Unit = {
     println("★☆★☆★☆★☆★☆★☆　ブラックジャックにようこそ！　★☆★☆★☆★☆★☆★☆\n")
     println("ゲームを開始します。\n")
 
-    val deck: Deck = new Deck
-    val user: AbstractPlayer = new User("あなた")
-    val dealer: AbstractPlayer = new Dealer("ディーラー")
+    val deck: Deck = Deck()
+    val user: AbstractPlayer = User("あなた")
+    val dealer: AbstractPlayer = Dealer("ディーラー")
 
     user.initCardList(deck)
     dealer.initCardList(deck)

@@ -1,5 +1,4 @@
-
-class Card(val suit: Suit, val rank: Int) {
+case class Card(val suit: Suit, val rank: Int) {
 
   def toDisplayValue(): String = {
     rank match {
