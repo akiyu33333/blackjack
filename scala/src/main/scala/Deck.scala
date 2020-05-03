@@ -12,7 +12,7 @@ case class Deck() {
   }
 
   def draw: Card = {
-    val c: Card = bill.head
+    val c = bill.head
     bill = bill.filterNot(_ == c)
     c
   }

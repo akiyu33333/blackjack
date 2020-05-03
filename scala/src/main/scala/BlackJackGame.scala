@@ -3,9 +3,9 @@ case class BlackJackGame() {
     println("★☆★☆★☆★☆★☆★☆　ブラックジャックにようこそ！　★☆★☆★☆★☆★☆★☆\n")
     println("ゲームを開始します。\n")
 
-    val deck: Deck = Deck()
-    val user: AbstractPlayer = User("あなた")
-    val dealer: AbstractPlayer = Dealer("ディーラー")
+    val deck = Deck()
+    val user = User("あなた")
+    val dealer = Dealer("ディーラー")
 
     user.initCardList(deck)
     dealer.initCardList(deck)
@@ -25,7 +25,7 @@ case class BlackJackGame() {
       println("引き分けです。")
       return
     }
-    val winner: AbstractPlayer = if (!player1.isBust && (player2.isBust || player1.calcScore > player2.calcScore)) {
+    val winner = if (!player1.isBust && (player2.isBust || player1.calcScore > player2.calcScore)) {
       player1
     } else {
       player2
