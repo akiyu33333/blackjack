@@ -1,3 +1,3 @@
 object Main extends App {
-  BlackJackGame().start()
+  BlackJackGame().start
 }

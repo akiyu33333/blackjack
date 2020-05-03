@@ -1,5 +1,5 @@
 case class BlackJackGame() {
-  def start(): Unit = {
+  def start: Unit = {
     println("★☆★☆★☆★☆★☆★☆　ブラックジャックにようこそ！　★☆★☆★☆★☆★☆★☆\n")
     println("ゲームを開始します。\n")
 
@@ -21,11 +21,11 @@ case class BlackJackGame() {
   }
 
   def printGameResult(player1: AbstractPlayer, player2: AbstractPlayer): Unit = {
-    if (player1.calcScore() == player2.calcScore()) {
+    if (player1.calcScore == player2.calcScore) {
       println("引き分けです。")
       return
     }
-    val winner: AbstractPlayer = if (!player1.isBust && (player2.isBust || player1.calcScore() > player2.calcScore())) {
+    val winner: AbstractPlayer = if (!player1.isBust && (player2.isBust || player1.calcScore > player2.calcScore)) {
       player1
     } else {
       player2

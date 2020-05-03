@@ -5,10 +5,10 @@ case class Dealer(override val name: String) extends AbstractPlayer(name) {
   }
 
   override def drawCard(deck: Deck): Unit = {
-    println(name + "の現在の得点は" + calcScore() + "点です。\n")
-    while (calcScore() < 17) {
+    println(name + "の現在の得点は" + calcScore + "点です。\n")
+    while (calcScore < 17) {
       draw(deck)
-      println(name + "の現在の得点は" + calcScore() + "点です。\n")
+      println(name + "の現在の得点は" + calcScore + "点です。\n")
     }
   }
 }

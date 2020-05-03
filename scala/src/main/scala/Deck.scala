@@ -11,7 +11,7 @@ case class Deck() {
     Random.shuffle(cards)
   }
 
-  def draw(): Card = {
+  def draw: Card = {
     val c: Card = bill.head
     bill = bill.filterNot(_ == c)
     c

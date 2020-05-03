@@ -7,16 +7,16 @@ abstract class AbstractPlayer(val name: String) {
     cardList = cardList.::(card)
   }
 
-  def calcScore(): Int = {
+  def calcScore: Int = {
     val score: Int = {
       var score: Int = 0
-      val filterCardList: List[Card] = cardList.filter(_.getPoint() > 1)
+      val filterCardList: List[Card] = cardList.filter(_.point > 1)
       for (c <- filterCardList) {
-        score = score + c.getPoint()
+        score = score + c.point
       }
       score
     }
-    val aceCardCount: Int = cardList.filter(_.getPoint() == 1).size
+    val aceCardCount: Int = cardList.filter(_.point == 1).size
     if (aceCardCount == 0) return score
     val borderScore: Int = 11 - aceCardCount
     if (score > borderScore) {
@@ -31,9 +31,9 @@ abstract class AbstractPlayer(val name: String) {
   }
 
   def draw(deck: Deck, isHidden: Boolean): Unit = {
-    val card: Card = deck.draw()
+    val card: Card = deck.draw
     addCardList(card)
-    if (calcScore() > BUST_POINT) isBust = true
+    if (calcScore > BUST_POINT) isBust = true
     val msg: String = {
       if (isHidden) {
         name + "の引いたカードはわかりません。"

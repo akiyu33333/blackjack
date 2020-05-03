@@ -1,6 +1,4 @@
 sealed abstract class Suit(val mark: String) {
-  def getMark(): String = mark
-
 }
 
 object Suit {
