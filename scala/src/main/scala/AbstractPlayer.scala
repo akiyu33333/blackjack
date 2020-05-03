@@ -3,12 +3,12 @@ abstract class AbstractPlayer(val name: String) {
   var cardList: List[Card] = List()
   var isBust = false
 
-  private def addCardList(card: Card) = cardList = cardList.::(card)
+  private def addCardList(card: Card) = cardList = cardList :+ card
 
   def calcScore: Int = {
     var score = 0
     for (c <- cardList.filter(_.point > 1)) score = score + c.point
-    val aceCardCount: Int = cardList.filter(_.point == 1).size
+    val aceCardCount = cardList.filter(_.point == 1).size
     if (aceCardCount == 0) return score
     val borderScore = 11 - aceCardCount
     if (score > borderScore) score + aceCardCount else score + 10 + aceCardCount

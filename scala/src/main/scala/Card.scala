@@ -12,5 +12,5 @@ case class Card(val suit: Suit, val rank: Int) {
 
   def point = if (rank > 10) 10 else rank
 
-  override def toString= suit.mark + "の" + toDisplayValue
+  override def toString = suit.mark + "の" + toDisplayValue
 }
