@@ -1,7 +1,4 @@
-sealed abstract class Suit(val mark: String) {
-  def getMark(): String = mark
-
-}
+sealed abstract class Suit(val mark: String)
 
 object Suit {
 
@@ -13,7 +10,7 @@ object Suit {
 
   case object CLUB extends Suit("クラブ")
 
-  def values: List[Suit] = List(SPADE, HEART, DIAMOND, CLUB)
+  def values = List(SPADE, HEART, DIAMOND, CLUB)
 }
 
 
