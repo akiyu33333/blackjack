@@ -1,15 +1,12 @@
+import scala.collection.mutable._
 import scala.util.Random
 
 case class Deck() {
-  var bill = {
-    var cards: List[Card] = List()
-    for (s <- Suit.values; i <- 1 to 13) cards = cards :+ Card(s, i)
+  val bill = {
+    val cards: Queue[Card] = Queue()
+    for (s <- Suit.values; i <- 1 to 13) cards += Card(s, i)
     Random.shuffle(cards)
   }
 
-  def draw = {
-    val c = bill.head
-    bill = bill.filterNot(_ == c)
-    c
-  }
+  def draw = bill.dequeue
 }
