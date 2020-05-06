@@ -20,7 +20,7 @@ abstract class AbstractPlayer(val name: String) {
     val card = deck.draw
     addCardList(card)
     isBust = calcScore > BUST_POINT
-    val msg = if (isHidden) name + "の引いたカードはわかりません。" else name + "の引いたカードは" + card.toString() + "です。"
+    val msg = if (isHidden) s"${name}の引いたカードはわかりません。" else s"${name}の引いたカードは${card.toString()}です。"
     println(msg)
   }
 
