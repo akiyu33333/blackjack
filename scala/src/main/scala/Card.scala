@@ -1,7 +1,6 @@
+case class Card(val suit: Suit, val rank: Int) {
 
-class Card(val suit: Suit, val rank: Int) {
-
-  def toDisplayValue(): String = {
+  def toDisplayValue = {
     rank match {
       case 1 => "A"
       case 11 => "J"
@@ -11,11 +10,7 @@ class Card(val suit: Suit, val rank: Int) {
     }
   }
 
-  def getPoint(): Int = {
-    if (rank > 10) 10 else rank
-  }
+  def point = if (rank > 10) 10 else rank
 
-  override def toString: String = {
-    suit.getMark() + "の" + toDisplayValue()
-  }
+  override def toString = suit.mark + "の" + toDisplayValue
 }
