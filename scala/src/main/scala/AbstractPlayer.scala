@@ -3,7 +3,7 @@ abstract class AbstractPlayer(val name: String) {
   var cardList: List[Card] = List()
   var isBust = false
 
-  private def addCardList(card: Card) = cardList = cardList :+ card
+  private def addCardList(card: Card) = cardList = card :: cardList
 
   def calcScore: Int = {
     var score = 0
